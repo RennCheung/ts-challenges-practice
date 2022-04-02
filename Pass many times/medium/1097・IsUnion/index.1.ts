@@ -22,6 +22,7 @@
 
 type IsUnion<T, U = T> = T extends T ? ([U] extends [T] ? false : true) : never;
 
+type case1 = IsUnion<{ a: string } | { a: number }>;
 /* _____________ Test Cases _____________ */
 import { Equal, Expect } from "@type-challenges/utils";
 
