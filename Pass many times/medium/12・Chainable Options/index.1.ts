@@ -39,9 +39,12 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Chainable = {
-  option(key, value): any;
-  get(): any;
+type Chainable<T extends object = {}> = {
+  option<K extends string, V>(
+    key: K extends keyof T ? never : K,
+    value: V
+  ): Chainable<T & { [key in K]: V }>;
+  get(): T;
 };
 
 type case1 = typeof result1;

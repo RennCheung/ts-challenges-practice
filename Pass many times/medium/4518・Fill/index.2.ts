@@ -24,17 +24,17 @@ type Fill<
   N,
   Start extends number = 0,
   End extends number = T["length"],
-  Flag extends boolean = false,
-  Res extends any[] = []
-> = T extends [infer First, ...infer Rest]
+  Res extends any[] = [],
+  Flag extends boolean = false
+> = T extends [infer F, ...infer Rest]
   ? Res["length"] extends End
-    ? Fill<Rest, N, Start, End, false, [...Res, First]>
+    ? Fill<Rest, N, Start, End, [...Res, F], false>
     : Res["length"] extends Start
-    ? Fill<Rest, N, Start, End, true, [...Res, N]>
-    : Fill<Rest, N, Start, End, Flag, [...Res, Flag extends true ? N : First]>
+    ? Fill<Rest, N, Start, End, [...Res, N], true>
+    : Fill<Rest, N, Start, End, [...Res, Flag extends true ? N : F], Flag>
   : Res;
 
-type case1 = Fill<[1, 2, 3], true, 0, 10>;
+type case1 = Fill<[1, 2, 3], true, 0, 0>;
 /* _____________ Test Cases _____________ */
 import { Equal, Expect } from "@type-challenges/utils";
 

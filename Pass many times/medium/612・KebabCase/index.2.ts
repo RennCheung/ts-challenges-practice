@@ -12,8 +12,11 @@
 
 /* _____________ Your Code Here _____________ */
 
-type KebabCase<S extends string> = any;
+type KebabCase<S extends string> = S extends `${infer L}${infer R}`
+  ? `${Lowercase<L>}${R extends Uncapitalize<R> ? "" : "-"}${KebabCase<R>}`
+  : S;
 
+type case2 = "string" extends Capitalize<"String"> ? true : false;
 type case1 = KebabCase<"foo-bar">;
 /* _____________ Test Cases _____________ */
 import { Equal, Expect } from "@type-challenges/utils";

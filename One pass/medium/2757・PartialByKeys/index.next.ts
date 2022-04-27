@@ -25,11 +25,14 @@
 */
 
 /* _____________ Your Code Here _____________ */
-
-type PartialByKeys<T, K> = any;
+type Copy<T, P> = Pick<T & P, keyof (T & P)>;
+type PartialByKeys<T extends object, K extends keyof any = keyof T> = Copy<
+  Omit<T, K>,
+  Partial<Pick<T, Extract<keyof T, K>>>
+>;
 
 type case1 = PartialByKeys<User>;
-type case2 = PartialByKeys<User, "name">;
+type case2 = PartialByKeys<User, "name" | "unknown">;
 const obj: case1 = {
   age: 1,
   address: "jiangshan",

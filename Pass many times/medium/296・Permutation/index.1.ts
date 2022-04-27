@@ -20,9 +20,7 @@
 type Permutation<T, U = T> = [T] extends [never]
   ? []
   : T extends T
-  ? T extends U
-    ? [T, ...Permutation<Exclude<U, T>>]
-    : never
+  ? [T, ...Permutation<Exclude<U, T>>]
   : never;
 
 type case1 = Permutation<"A" | "B" | "C">;

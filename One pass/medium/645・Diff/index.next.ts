@@ -12,7 +12,9 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Diff<O extends object, O1 extends object> = any;
+type Diff<O extends object, O1 extends object> = {
+  [key in Exclude<keyof (O & O1), keyof Foo & keyof Bar>]: (O & O1)[key];
+};
 
 type case1 = Diff<Foo, Bar>;
 

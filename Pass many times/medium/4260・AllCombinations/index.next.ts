@@ -19,14 +19,7 @@
 
 /* _____________ Your Code Here _____________ */
 
-type AllCombinations<
-  S extends string,
-  Pre extends string = ""
-> = S extends `${infer L}${infer Rest}`
-  ?
-      | `${L}${AllCombinations<`${Rest}${Pre}`>}`
-      | AllCombinations<Rest, `${Pre}${L}`>
-  : S;
+type AllCombinations<S extends string> = any;
 
 type case1 = AllCombinations<"ABC">;
 /* _____________ Test Cases _____________ */

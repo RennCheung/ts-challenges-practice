@@ -29,7 +29,13 @@
 
 /* _____________ Your Code Here _____________ */
 
-type LookUp<U, T> = any;
+type LookUp<U extends object, T extends string, P = U> = U extends U
+  ? [P] extends [U]
+    ? never
+    : T extends U[keyof U]
+    ? U
+    : never
+  : never;
 
 type case1 = LookUp<Animal, "dog">;
 /* _____________ Test Cases _____________ */
@@ -49,8 +55,8 @@ interface Dog {
 type Animal = Cat | Dog;
 
 type cases = [
-  Expect<Equal<LookUp<Animal, "dog">, Dog>>,
-  Expect<Equal<LookUp<Animal, "cat">, Cat>>
+  Expect<Equal<LookUp<Animal, "Boxer">, Dog>>,
+  Expect<Equal<LookUp<Animal, "Bengal">, Cat>>
 ];
 
 /* _____________ Further Steps _____________ */

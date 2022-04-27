@@ -20,7 +20,7 @@
 
 /* _____________ Your Code Here _____________ */
 
-type IsUnion<T> = any;
+type IsUnion<T, P = T> = T extends T ? ([P] extends [T] ? false : true) : false;
 
 /* _____________ Test Cases _____________ */
 import { Equal, Expect } from "@type-challenges/utils";

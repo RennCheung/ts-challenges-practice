@@ -18,7 +18,9 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Flatten<T extends unknown[]> = any;
+type Flatten<T> = T extends [infer First, ...infer Rest]
+  ? [...Flatten<First>, ...Flatten<Rest>]
+  : [...(T extends [] ? [] : [T])];
 
 type case1 = Flatten<[1, [2]]>;
 /* _____________ Test Cases _____________ */

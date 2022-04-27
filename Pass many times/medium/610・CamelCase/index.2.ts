@@ -12,7 +12,11 @@
 
 /* _____________ Your Code Here _____________ */
 
-type CamelCase<S extends string> = any;
+type CamelCase<S extends string> = S extends `${infer L}-${infer R}`
+  ? R extends Capitalize<R>
+    ? `${L}-${CamelCase<R>}`
+    : `${L}${CamelCase<Capitalize<R>>}`
+  : S;
 
 type case1 = CamelCase<"foo-Bar-Baz">;
 /* _____________ Test Cases _____________ */

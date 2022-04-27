@@ -18,9 +18,16 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Unique<T extends unknown[]> = any;
+type Unique<T extends unknown[], Res extends any[] = []> = T extends [
+  infer First,
+  ...infer Rest
+]
+  ? Unique<Rest, [...Res, ...(First extends Res[number] ? [] : [First])]>
+  : Res;
 
-type case1 = Unique<[1, 1, 2, 2, 3, 3]>;
+type case1 = Unique<
+  [1, "a", 2, "b", 2, "a", {}, {}, { name: 123 }, { name: "s" }]
+>;
 /* _____________ Test Cases _____________ */
 import { Equal, Expect } from "@type-challenges/utils";
 

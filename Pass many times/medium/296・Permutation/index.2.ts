@@ -15,7 +15,11 @@
 */
 
 /* _____________ Your Code Here _____________ */
-type Permutation<T> = any;
+type Permutation<T, P = T> = [T] extends [never]
+  ? []
+  : T extends T
+  ? [T, ...Permutation<Exclude<P, T>>]
+  : never;
 
 type case1 = Permutation<"A" | "B">;
 
